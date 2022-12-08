@@ -2,7 +2,7 @@
 #include <time.h>
 
 void main(){
-    int n=0,fac=1;
+    int n=0,fac=1,i;
     clock_t start,end;
     double cpu_time_used;
 
@@ -11,7 +11,7 @@ void main(){
     scanf("%d",&n);
 
     start = clock();
-    for(int i=1;i<=n;i++){
+    for(i=1;i<=n;i++){
         fac=fac*i;
     }
     end=clock();
