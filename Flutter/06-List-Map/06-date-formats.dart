@@ -1,13 +1,16 @@
-// import "package:intl/intl.dart";
-
+import "package:intl/intl.dart";
 
 void main(List<String> args) {
-  DateTime now = new DateTime.now();
-  print(now);
-
+ 
+  // for create dart project = "dart create -t console project_name"
   // for package add ="flutter pub add intl"
   
-  // print(DateFormat.yMMMd().format(now));
-  // String datetime1 = DateFormat("yyyy-MM-dd").format(now);
-  // print(datetime1);
+  DateTime now = new DateTime.now();
+  print("======================");
+  print(now);
+  print(DateFormat("dd/MM/yyyy").format(now));
+  print(DateFormat("dd-MM-yyyy").format(now));
+  print(DateFormat("dd-MMM-yyyy").format(now));
+  print(DateFormat("dd-MM-yy").format(now));
+  print(DateFormat("dd MMM yy").format(now));
 }
