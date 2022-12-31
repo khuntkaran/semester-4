@@ -6,6 +6,20 @@ class NineEqualePart extends StatefulWidget{
 }
 
 class _NineEqualePartState extends State<NineEqualePart> {
+  Widget costmaiseContainer(bgColor){
+    return Expanded(child: Container(color:bgColor));
+  }
+  Widget coustmaiseColumn(color1,color2,color3){
+    return Expanded(
+      child: Column(
+        children: [
+          costmaiseContainer(color1),
+          costmaiseContainer(color2),
+          costmaiseContainer(color3),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
    return SafeArea(
@@ -13,27 +27,9 @@ class _NineEqualePartState extends State<NineEqualePart> {
          body: Container(
            child: Row(
              children:[
-               Column(
-                 children: [
-                   Container(color:Colors.pinkAccent,width: 120,height: 249,),
-                   Container(color:Colors.blue,width: 120,height: 249,),
-                   Container(color:Colors.amber,width: 120,height: 249,),
-                 ],
-               ),
-               Column(
-                 children: [
-                   Container(color:Colors.black,width: 120,height: 249,),
-                   Container(color:Colors.red,width: 120,height: 249,),
-                   Container(color:Colors.green,width: 120,height: 249,),
-                 ],
-               ),
-               Column(
-                 children: [
-                   Container(color:Colors.cyan,width: 120,height: 249,),
-                   Container(color:Colors.yellowAccent,width: 120,height: 249,),
-                   Container(color:Colors.redAccent,width: 120,height: 249,),
-                 ],
-               ),
+               coustmaiseColumn(Colors.pinkAccent,Colors.blue,Colors.amber),
+               coustmaiseColumn(Colors.black,Colors.red,Colors.lightGreen),
+               coustmaiseColumn(Colors.cyan,Colors.yellowAccent,Colors.redAccent),
              ]
            )
          )
