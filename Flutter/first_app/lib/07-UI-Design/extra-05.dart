@@ -6,6 +6,9 @@ class Extra_05 extends StatefulWidget {
 }
 
 class _Extra_05State extends State<Extra_05> {
+  Widget putImage(String path,int fl){
+    return Expanded(child: Container(child: Image.asset(path,fit:BoxFit.fill),margin: EdgeInsets.all(4),),flex: fl,);
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,34 +18,9 @@ class _Extra_05State extends State<Extra_05> {
           Expanded(
               child: Column(
             children: [
-              Expanded(
-                child: Container(
-                  child: Image.asset(
-                    'assets/images/thar.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  margin: EdgeInsets.all(4),
-                ),
-                flex: 4,
-              ),
-              Expanded(
-                child: Container(
-                  child: Image.asset(
-                    'assets/images/thar.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  margin: EdgeInsets.all(4),
-                ),
-                flex: 2,
-              ),
-              Expanded(
-                  child: Container(
-                child: Image.asset(
-                  'assets/images/thar.jpg',
-                  fit: BoxFit.fill,
-                ),
-                margin: EdgeInsets.all(4),
-              ))
+              putImage('assets/images/thar.jpg', 4),
+              putImage('assets/images/thar.jpg', 2),
+              putImage('assets/images/thar.jpg', 1),
             ],
           )),
           Expanded(
@@ -55,69 +33,23 @@ class _Extra_05State extends State<Extra_05> {
                       Expanded(
                           child: Column(
                         children: [
-                          Expanded(
-                              child: Container(
-                            child: Image.asset(
-                              'assets/images/thar.jpg',
-                              fit: BoxFit.fill,
-                            ),
-                            margin: EdgeInsets.all(4),
-                          )),
-                          Expanded(
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/thar.jpg',
-                                fit: BoxFit.fill,
-                              ),
-                              margin: EdgeInsets.all(4),
-                            ),
-                            flex: 2,
-                          ),
+                          putImage('assets/images/thar.jpg', 1),
+                          putImage('assets/images/thar.jpg', 2),
                         ],
                       )),
                       Expanded(
                           child: Column(
                         children: [
-                          Expanded(
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/thar.jpg',
-                                fit: BoxFit.fill,
-                              ),
-                              margin: EdgeInsets.all(4),
-                            ),
-                            flex: 2,
-                          ),
-                          Expanded(
-                              child: Container(
-                            child: Image.asset(
-                              'assets/images/thar.jpg',
-                              fit: BoxFit.fill,
-                            ),
-                            margin: EdgeInsets.all(4),
-                          )),
+                          putImage('assets/images/thar.jpg', 2),
+                          putImage('assets/images/thar.jpg', 1),
                         ],
                       )),
                     ],
                   ),
                   flex: 5,
                 ),
-                Expanded(
-                    child: Container(
-                  child: Image.asset(
-                    'assets/images/thar.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  margin: EdgeInsets.all(4),
-                )),
-                Expanded(
-                    child: Container(
-                  child: Image.asset(
-                    'assets/images/thar.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  margin: EdgeInsets.all(4),
-                ))
+                putImage('assets/images/thar.jpg', 1),
+                putImage('assets/images/thar.jpg', 1),
               ],
             ),
           )
