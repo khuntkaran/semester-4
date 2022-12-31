@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
+class TextDisplay extends StatefulWidget{
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<TextDisplay> createState() => _TextDisplayState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _TextDisplayState extends State<TextDisplay> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             body: Container(
-              color: Colors.cyan,
+                color: Colors.cyan,
                 child: Center(
                   child: Text(
                     "Hello World",
