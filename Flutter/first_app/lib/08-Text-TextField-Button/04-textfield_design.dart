@@ -23,6 +23,7 @@ class _TextFieldDesignState extends State<TextFieldDesign> {
       children: [
         Container(
           child: TextField(
+              // onChanged: (text){setState(){}} ,
               controller: _inputControl,
               decoration: InputDecoration(
                 labelText: "Apply border",
