@@ -30,14 +30,17 @@ class _SimpleInterestCalculatorState extends State<SimpleInterestCalculator> {
   }
 
   late TextEditingController _amount,_percentage,_time ;
-  double interest=0.0;
+  double interest=0;
   @override
   void initState() {
     super.initState();
     _amount= TextEditingController();
     _percentage= TextEditingController();
     _time= TextEditingController();
-    interest=100.0;
+  }
+
+  void interestCaluculate(double p,r,n){
+    interest = p*r*n/100;
   }
 
   @override
@@ -70,7 +73,13 @@ class _SimpleInterestCalculatorState extends State<SimpleInterestCalculator> {
            ),
            Container(
              child: TextButton(
-               onPressed: (){setState((){});},
+               onPressed: (){
+                 double p=double.parse(_amount.text);
+                 double r= double.parse(_percentage.text);
+                 double n=  double.parse(_time.text);
+                 interestCaluculate(p, r, n);
+                 setState((){});
+                 },
                child: Text('Calculate',style: TextStyle(color: Colors.white),),
              ),
              color: Colors.pink,

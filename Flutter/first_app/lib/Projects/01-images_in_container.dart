@@ -17,6 +17,7 @@ class _ImagesInContainerState extends State<ImagesInContainer> {
         children: [
           Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               putImage('assets/images/thar.jpg', 4,Colors.greenAccent),
               putImage('assets/images/thar.jpg', 2,Colors.redAccent),
@@ -26,12 +27,14 @@ class _ImagesInContainerState extends State<ImagesInContainer> {
           Expanded(
             flex: 2,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
                   child: Row(
                     children: [
                       Expanded(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           putImage('assets/images/thar.jpg', 1,Colors.purple),
                           putImage('assets/images/thar.jpg', 2,Colors.amber),
@@ -39,6 +42,7 @@ class _ImagesInContainerState extends State<ImagesInContainer> {
                       )),
                       Expanded(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           putImage('assets/images/thar.jpg', 2,Colors.cyanAccent),
                           putImage('assets/images/thar.jpg', 1,Colors.black12),
