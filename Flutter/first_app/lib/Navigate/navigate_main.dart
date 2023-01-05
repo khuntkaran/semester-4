@@ -40,31 +40,13 @@ class myCard{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  child: Card(
-                    elevation: 20,
-                    child: Container(
-                      child: Text(
-                        displayName,
-                      ),
-                      margin: EdgeInsets.all(20),
-                    ),
-                  ),
-
-                ),
+                Card(elevation: 20,child: Container(child: Text(displayName,),margin: EdgeInsets.all(20),),                ),
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return routeName;
-                }),
-              );
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {return routeName;}),);
             }),
       margin: EdgeInsets.all(10),
     );
-
   }
-
 }
