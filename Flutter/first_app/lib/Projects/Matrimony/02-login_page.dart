@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text("Login",style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     if(formkey.currentState!.validate()){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) {return HomePage();}),);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {return HomePage();}),);
                     }
                   },
                 ),
