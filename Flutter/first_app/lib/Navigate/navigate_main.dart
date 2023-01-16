@@ -1,5 +1,6 @@
 import 'package:first_app/Navigate/07-navigate.dart';
 import 'package:first_app/Navigate/08-navigate.dart';
+import 'package:first_app/Navigate/09-navigate.dart';
 import 'package:first_app/Navigate/project-navigate.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _NavigateMainState extends State<NavigateMain> {
           children: [
             card.makeCard(SevenNavigate(), "07-UI-Design"),
             card.makeCard(EightNavigate(), "08-Text-TextField-Button"),
+            card.makeCard(NineNavigate(), "09-Images"),
             card.makeCard(ProjectNavigate(), "Project"),
           ],
         ),
