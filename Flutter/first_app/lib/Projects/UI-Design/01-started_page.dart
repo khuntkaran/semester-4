@@ -30,7 +30,7 @@ class _StartedPageState extends State<StartedPage> {
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: Text(
                               'THE SECRET\nOF YOUR\nHAPPINESS',
-                              style: TextStyle(fontSize: 40,color: Colors.white,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 40,color: Colors.white,fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -43,7 +43,7 @@ class _StartedPageState extends State<StartedPage> {
                             margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                             child: Text(
                               'get your enjoy quickly and easily',
-                              style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w900),
+                              style: TextStyle(fontSize: 14,color: Colors.grey,),
                             ),
                           ),
                         ),
