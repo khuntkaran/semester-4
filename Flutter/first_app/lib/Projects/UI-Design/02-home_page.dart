@@ -230,7 +230,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavyBarItem(
             activeColor: Colors.black,
               inactiveColor: Colors.pink,
-            icon: Icon(Icons.save,color: Colors.white,),
+            icon: Icon(Icons.bookmarks_outlined,color: Colors.white,),
               title:Text("Save",style: TextStyle(color: Colors.white),)
           ),
         ],
