@@ -18,7 +18,7 @@ class _NineNavigateState extends State<NineNavigate> {
   Widget build(BuildContext context) {
     myCard card=myCard(context);
     return SafeArea(child: Scaffold(
-      appBar: AppBar(title: Text("My App"),backgroundColor: Colors.greenAccent,),
+      appBar: AppBar(title: Text("09-Images"),backgroundColor: Colors.cyan,),
       body: SingleChildScrollView(
         child: Column(
           children: [

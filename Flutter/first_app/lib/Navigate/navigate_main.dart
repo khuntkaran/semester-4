@@ -1,6 +1,12 @@
+import 'dart:async';
+
+import 'package:first_app/09-Images/05-splash_screen.dart';
 import 'package:first_app/Navigate/07-navigate.dart';
 import 'package:first_app/Navigate/08-navigate.dart';
 import 'package:first_app/Navigate/09-navigate.dart';
+import 'package:first_app/Navigate/10-navigate.dart';
+import 'package:first_app/Navigate/11-navigate.dart';
+import 'package:first_app/Navigate/12-navigate.dart';
 import 'package:first_app/Navigate/project-navigate.dart';
 import 'package:flutter/material.dart';
 
@@ -16,14 +22,17 @@ class _NavigateMainState extends State<NavigateMain> {
     myCard card=myCard(context);
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(title: Text("My App"),backgroundColor: Colors.greenAccent,),
+          appBar: AppBar(title: Text("My App"),backgroundColor: Colors.cyan,),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            card.makeCard(ProjectNavigate(), "Project"),
             card.makeCard(SevenNavigate(), "07-UI-Design"),
             card.makeCard(EightNavigate(), "08-Text-TextField-Button"),
             card.makeCard(NineNavigate(), "09-Images"),
-            card.makeCard(ProjectNavigate(), "Project"),
+            card.makeCard(TenNavigate(), "10-Navigation"),
+            card.makeCard(ElevenNavigate(), "11-Appbar"),
+            card.makeCard(TwelveNavigate(), "12-Validation"),
           ],
         ),
       ),

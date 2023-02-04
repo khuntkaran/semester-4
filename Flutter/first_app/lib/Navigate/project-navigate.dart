@@ -16,7 +16,7 @@ class _ProjectNavigateState extends State<ProjectNavigate> {
   Widget build(BuildContext context) {
     myCard card=myCard(context);
    return SafeArea(child: Scaffold(
-     appBar: AppBar(title: Text("My App"),backgroundColor: Colors.greenAccent,),
+     appBar: AppBar(title: Text("Project"),backgroundColor: Colors.cyan,),
      body: SingleChildScrollView(
        child: Column(
          children: [

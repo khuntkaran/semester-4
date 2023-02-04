@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
 
@@ -9,11 +11,21 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
 
-  Widget menubarText(String data){
-    return Container(
-      child: Image.asset(data,fit: BoxFit.cover,height: 150,width: 100,),
-      margin: EdgeInsets.fromLTRB(3, 2, 15, 2),
-    );
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    _controller = VideoPlayerController.network("https://media.istockphoto.com/id/1329036936/video/night-view-of-hong-kong-island-from-victoria-harbour-in-hong-kong.mp4?s=mp4-640x640-is&k=20&c=UW-zNGSBMM_hXnzTO4e3kXuwjdNb-A4CPf51LFuj1tU=",);
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    _controller.setVolume(1.0);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,7 +49,13 @@ class _DetailPageState extends State<DetailPage> {
                                 children: [
                                   Align(
                                       alignment: AlignmentDirectional.topStart,
-                                      child: CircleAvatar(radius: 23,backgroundColor: Color(0x94A8A8A8),child: Icon(Icons.arrow_back,color: Colors.black,))),
+                                      child: TextButton(
+                                        onPressed: (){
+                                          Navigator.of(context).pop();
+                                        },
+                                          child: CircleAvatar(radius: 23,backgroundColor: Color(0x94A8A8A8),child: Icon(Icons.arrow_back,color: Colors.black,))
+                                      )
+                                  ),
                                   Align(
                                       alignment: AlignmentDirectional.topEnd,
                                       child: CircleAvatar(radius: 23,backgroundColor: Color(0x94A8A8A8),child: Icon(Icons.menu,color: Colors.black,))),
@@ -45,16 +63,39 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                               Stack(
                                 children: [
-                                  Align(alignment:AlignmentDirectional.topStart,child: Container(margin:EdgeInsets.only(top: 10),child: Text("(G)I-DLE 'Nxde Music\nVideo behind sence" ,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 22),))),
+                                  Align(alignment:AlignmentDirectional.topStart,child: Container(margin:EdgeInsets.only(top: 10),child: Text("(G)I-DLE 'Nxde Music\nVideo behind sence" ,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20,fontFamily: "Inter"),))),
                                 ],
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                child: Stack(
+                                child: Row(
                                   children: [
-                                    ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        child: Image.asset('assets/images/music.jpg',fit: BoxFit.cover,height: 200,width: 700,)
+                                    Expanded(
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          child: FutureBuilder(
+                                            future: _initializeVideoPlayerFuture,
+                                            builder: (context,snapshot){
+                                              if(snapshot.connectionState == ConnectionState.done){
+                                                return AspectRatio(
+                                                  aspectRatio: _controller.value.aspectRatio,
+                                                  child: Chewie(
+                                                      controller: ChewieController(
+                                                        videoPlayerController: _controller,
+                                                        materialProgressColors:ChewieProgressColors(backgroundColor: Color(0x49CDCDD3),playedColor: Colors.white)
+                                                      ),
+                                                  // child: VideoPlayer(_controller,)),
+                                                  )
+                                                );
+                                              }
+                                              else{
+                                                return Center(
+                                                  child: CircularProgressIndicator(),
+                                                );
+                                              }
+                                            },
+                                          )
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -137,7 +178,7 @@ class _DetailPageState extends State<DetailPage> {
                                           children: [
                                             Row(
                                               children: [
-                                                Text("(G)I-DLE Official " ,style: TextStyle(fontSize:11,fontWeight: FontWeight.bold,),),
+                                                Text("(G)I-DLE Official " ,style: TextStyle(fontSize:11,fontFamily: "Inter",fontWeight: FontWeight.bold,),),
                                                 Icon(Icons.verified,color: Colors.blue,size: 15,)
                                               ],
                                             ),
@@ -171,22 +212,18 @@ class _DetailPageState extends State<DetailPage> {
                                 margin: EdgeInsets.fromLTRB(0,10,0,10),),
                               Row(
                                 children: [
-                                  Text("Related Video",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                                  Text("Related Video",style: TextStyle(fontFamily: "Inter",fontSize: 15,fontWeight: FontWeight.w500),),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 15),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      menubarText("assets/images/bullet.jpg"),
-                                      menubarText("assets/images/bullet.jpg"),
-                                  menubarText("assets/images/bullet.jpg"),
-                                  menubarText("assets/images/bullet.jpg"),
-                                    ],
-
-                                  ),
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        child: Image.asset('assets/images/car.jpg',fit: BoxFit.cover,height: 200,width: 700,)
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -196,7 +233,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ],
               ),
-            )
+            ),
         )
     );
   }

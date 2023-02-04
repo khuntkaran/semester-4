@@ -12,12 +12,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int selecteditem=0;
+  int selectmenu=1;
 
 
-  Widget menubarText(String data){
-    return Container(
-        child: Text(data,style: TextStyle(color: data=="Music"?Colors.white:Colors.grey,),),
-      margin: EdgeInsets.fromLTRB(3, 2, 15, 2),
+  Widget menubarText(String data,int x){
+    return TextButton(
+      onPressed: (){
+        setState(() {
+          selectmenu=x;
+        });
+      },
+      child: Container(
+          child: Text(data,style: TextStyle(color: x==selectmenu?Colors.white:Colors.grey,fontFamily: 'Inter',fontSize: 12),),
+        margin: EdgeInsets.fromLTRB(3, 2, 15, 2),
+      ),
     );
   }
 
@@ -27,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       child: Container(
         margin: EdgeInsets.fromLTRB(5, m,5,0),
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           color: Colors.white,
           elevation: 10,
           child: Container(
@@ -37,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Stack(
                   children: [
-                    Text("(G)I-DLE 'Nxde Music\nVideo behind sence" ,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
+                    Text("(G)I-DLE 'Nxde Music\nVideo behind sence" ,style: TextStyle(fontFamily: 'Inter',fontWeight: FontWeight.w700,fontSize: 17),),
                     Align(
                         alignment: AlignmentDirectional.topEnd,
                         child: CircleAvatar(radius: 23,backgroundColor: Color(0x94A8A8A8),child: Icon(Icons.favorite,color: Colors.white,))),
@@ -51,6 +59,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.asset('assets/images/music.jpg',fit: BoxFit.cover,height: 100,width: 700,)
                       ),
+
                     ],
                   ),
                 ),
@@ -58,13 +67,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
-                        Text("(G)I-DLE Official" ,style: TextStyle(fontWeight: FontWeight.bold,),),
+                        Text("(G)I-DLE Official" ,style: TextStyle(fontFamily: 'Inter',fontWeight: FontWeight.bold,fontSize: 13),),
                         Icon(Icons.verified,color: Colors.blue,size: 15,)
                       ],
                     ),
                     Align(
                         alignment: AlignmentDirectional.topEnd,
-                        child:Text("1.3M Views • 2 Weeks Ago",style: TextStyle(fontSize: 10),)
+                        child:Text("1.3M Views • 2 Weeks Ago",style: TextStyle(fontSize: 9),)
                     ),
                   ],
                 ),
@@ -87,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
                         child: TextButton(
                           onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) {return DetailPage();}),);},
-                          child: Container(margin:EdgeInsets.all(5),child: Text('WATCH NOW',style: TextStyle(color:Colors.white,fontWeight: FontWeight.w800,fontSize: 18),)),
+                          child: Container(margin:EdgeInsets.all(5),child: Text('WATCH NOW',style: TextStyle(fontFamily: 'Inter',color:Colors.white,fontWeight: FontWeight.w800,fontSize: 15),)),
                         ),
                       ),
                     ),
@@ -121,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                 filled: true,
                 fillColor:Color(0x94A8A8A8),
                 hintText: " Search Something",
-                hintStyle: TextStyle(color: Colors.grey,fontSize: 13),
+                hintStyle: TextStyle(color: Colors.grey,fontSize: 13,fontFamily: 'Inter'),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color:Color(0x94A8A8A8),),
                   borderRadius: BorderRadius.circular(50.0),
@@ -149,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.fromLTRB(10, 20, 0, 10),
                           child: Text(
                             'Welcome back !',
-                            style: TextStyle(fontSize: 14,color: Colors.grey,),
+                            style: TextStyle(fontSize: 14,color: Colors.grey,fontFamily: 'Inter'),
                           ),
                         ),
                       ),
@@ -162,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                           child: Text(
                             'QUICK SEARCH\nENJOY FAST',
-                            style: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.w500,fontFamily: 'Inter'),
                           ),
                         ),
                       ),
@@ -177,13 +186,13 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    menubarText("Popular"),
-                    menubarText("Music"),
-                    menubarText("Sport"),
-                    menubarText("Gaming"),
-                    menubarText("Live"),
-                    menubarText("Conset"),
-                    menubarText("Video")
+                    menubarText("Popular",0),
+                    menubarText("Music",1),
+                    menubarText("Sport",2),
+                    menubarText("Gaming",3),
+                    menubarText("Live",4),
+                    menubarText("Conset",5),
+                    menubarText("Video",6)
                   ],
 
                 ),
@@ -210,25 +219,25 @@ class _HomePageState extends State<HomePage> {
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-            activeColor: Colors.black ,
+            activeColor: Color(0xFFFAFAFA) ,
             inactiveColor: Colors.pink,
             icon: Icon(Icons.home,color: Colors.white,),
             title:Text("Home",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
-            activeColor: Colors.black,
+            activeColor: Color(0xFFFAFAFA),
               inactiveColor: Colors.pink,
             icon: Icon(Icons.favorite_border,color: Colors.white,),
               title:Text("Favorite",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
-            activeColor: Colors.black,
+            activeColor: Color(0xFFFAFAFA),
               inactiveColor: Colors.pink,
             icon: Icon(Icons.widgets_outlined,color: Colors.white,),
               title:Text("Widgets",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
-            activeColor: Colors.black,
+            activeColor: Color(0xFFFAFAFA),
               inactiveColor: Colors.pink,
             icon: Icon(Icons.bookmarks_outlined,color: Colors.white,),
               title:Text("Save",style: TextStyle(color: Colors.white),)

@@ -19,7 +19,7 @@ class _StartedPageState extends State<StartedPage> {
               fit: StackFit.expand,
               children: [
                 Image.asset('assets/images/photo.avif',fit: BoxFit.fill,),
-                Container(color: Color(0x740f1011),),
+                Container(color: Color(0xcb0f1011),),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -30,7 +30,7 @@ class _StartedPageState extends State<StartedPage> {
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: Text(
                               'THE SECRET\nOF YOUR\nHAPPINESS',
-                              style: TextStyle(fontSize: 40,color: Colors.white,fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 33,color: Colors.white,fontWeight: FontWeight.w500,fontFamily: 'Inter'),
                             ),
                           ),
                         ),
@@ -58,10 +58,10 @@ class _StartedPageState extends State<StartedPage> {
                                   border: new Border.all(color: Colors.white, width: 2.0),
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
-                                margin: EdgeInsets.fromLTRB(10, 40, 10, 20),
+                                margin: EdgeInsets.fromLTRB(10, 30, 10, 20),
                                 child: TextButton(
                                     onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) {return HomePage();}),);},
-                                    child: Container(margin:EdgeInsets.all(10),child: Text('GET STARTED',style: TextStyle(color:Colors.black,),)),
+                                    child: Container(margin:EdgeInsets.all(10),child: Text('GET STARTED',style: TextStyle(color:Colors.black,fontFamily: "Inter"),)),
                                   ),
                               ),
                           ),

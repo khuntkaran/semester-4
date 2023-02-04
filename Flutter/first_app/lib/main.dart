@@ -1,5 +1,5 @@
+import 'package:first_app/09-Images/05-splash_screen.dart';
 import 'package:first_app/Navigate/navigate_main.dart';
-import 'package:first_app/Projects/Matrimony/03-home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: NavigateMain(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

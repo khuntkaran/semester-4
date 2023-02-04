@@ -20,7 +20,7 @@ class _SevenNavigateState extends State<SevenNavigate> {
   Widget build(BuildContext context) {
     myCard card=myCard(context);
     return SafeArea(child: Scaffold(
-      appBar: AppBar(title: Text("My App"),backgroundColor: Colors.greenAccent,),
+      appBar: AppBar(title: Text("07-UI-Design"),backgroundColor: Colors.cyan,),
       body: SingleChildScrollView(
         child: Column(
           children: [

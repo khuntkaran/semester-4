@@ -17,7 +17,7 @@ class _EightNavigateState extends State<EightNavigate> {
   Widget build(BuildContext context) {
     myCard card=myCard(context);
    return SafeArea(child: Scaffold(
-     appBar: AppBar(title: Text("My App"),backgroundColor: Colors.greenAccent,),
+     appBar: AppBar(title: Text("08-Text-TextField-Button"),backgroundColor: Colors.cyan,),
      body: SingleChildScrollView(
        child: Column(
          children: [
