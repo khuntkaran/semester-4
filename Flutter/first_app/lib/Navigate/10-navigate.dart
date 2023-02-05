@@ -23,7 +23,7 @@ class _TenNavigateState extends State<TenNavigate> {
           children: [
             card.makeCard(MaterialNavigationOne(), "01-material_navigation"),
             card.makeCard(NameRouteNavigationOne(), "02-name_route_navigation"),
-            card.makeCard(BottomNavigationbarOne(), "03-bottom_avigationbar"),
+            card.makeCard(BottomNavigationbarOne(), "03-bottom_navigationbar"),
             card.makeCard(BirthdayCard(), "04-birthday_card"),
           ],
         ),

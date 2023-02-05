@@ -220,25 +220,21 @@ class _HomePageState extends State<HomePage> {
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             activeColor: Color(0xFFFAFAFA) ,
-            inactiveColor: Colors.pink,
             icon: Icon(Icons.home,color: Colors.white,),
             title:Text("Home",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
             activeColor: Color(0xFFFAFAFA),
-              inactiveColor: Colors.pink,
             icon: Icon(Icons.favorite_border,color: Colors.white,),
               title:Text("Favorite",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
             activeColor: Color(0xFFFAFAFA),
-              inactiveColor: Colors.pink,
             icon: Icon(Icons.widgets_outlined,color: Colors.white,),
               title:Text("Widgets",style: TextStyle(color: Colors.white),)
           ),
           BottomNavyBarItem(
             activeColor: Color(0xFFFAFAFA),
-              inactiveColor: Colors.pink,
             icon: Icon(Icons.bookmarks_outlined,color: Colors.white,),
               title:Text("Save",style: TextStyle(color: Colors.white),)
           ),

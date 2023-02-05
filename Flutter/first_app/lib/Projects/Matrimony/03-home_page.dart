@@ -1,5 +1,6 @@
 import 'package:first_app/Projects/Matrimony/04-add_edit_user_page.dart';
 import 'package:first_app/Projects/Matrimony/05-user_detail_page.dart';
+import 'package:first_app/Projects/Matrimony/06-my_database.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +18,15 @@ class _HomePageState extends State<HomePage> {
     {"name":"Windos","age":'25',"salary":'650000',"image":"https://wallpapercave.com/wp/eHlGQW3.jpg"},
   ];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     MyDatabase().copyPasteAssetFileToRoot().then((value) => (value){
+       print("success full");
+       MyDatabase().getDataFromUsersTable();
+     });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,67 +48,205 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: users.length>0
-        ?Container(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-            itemBuilder: (context,index){
-              return Container(
-                child: InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                      return UserDetailPage(user:users[index]);})).then((value){
-                      setState(() {
-                        users[index]=value;
-                      });
-                    });
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
-                    color: Colors.white,
-                    elevation: 20,
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
-                              Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
-                              Expanded(
-                                child: Container(child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      onPressed: (){
-                                        setState(() {
-                                          users.removeAt(index);
-                                        });
-                                      },
-                                      child: Container(
-                                        padding:EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Color(0xD510446d),
+        ?SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Container(
+                margin: EdgeInsets.fromLTRB(20,10,20,10),
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context,index){
+                      return Container(
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return UserDetailPage(user:users[index]);})).then((value){
+                              setState(() {
+                                users[index]=value;
+                              });
+                            });
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
+                            color: Colors.white,
+                            elevation: 20,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
+                                      Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
+                                      Expanded(
+                                        child: Container(child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              onPressed: (){
+                                                setState(() {
+                                                  users.removeAt(index);
+                                                });
+                                              },
+                                              child: Container(
+                                                padding:EdgeInsets.all(8),
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Color(0xD510446d),
+                                                ),
+                                                child: Text("Delete",style: TextStyle(color: Colors.white , ),)),),
+                                          ],
                                         ),
-                                        child: Text("Delete",style: TextStyle(color: Colors.white , ),)),),
-                                  ],
-                                ),
-                                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                ),
+                                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
+                              margin: EdgeInsets.fromLTRB(15,10,0,10),),
                           ),
-                        ],
-                      ),
-                      margin: EdgeInsets.fromLTRB(15,10,0,10),),
+                        ),
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      );
+                    },
+                    itemCount: users.length,
+
+                ),
+       ),
+                Container(child: Text("DataBase",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context,index){
+                      return Container(
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return UserDetailPage(user:users[index]);})).then((value){
+                              setState(() {
+                                users[index]=value;
+                              });
+                            });
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
+                            color: Colors.white,
+                            elevation: 20,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
+                                      Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
+                                      Expanded(
+                                        child: Container(child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              onPressed: (){
+                                                setState(() {
+                                                  users.removeAt(index);
+                                                });
+                                              },
+                                              child: Container(
+                                                  padding:EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Color(0xD510446d),
+                                                  ),
+                                                  child: Text("Delete",style: TextStyle(color: Colors.white , ),)),),
+                                          ],
+                                        ),
+                                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              margin: EdgeInsets.fromLTRB(15,10,0,10),),
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      );
+                    },
+                    itemCount: users.length,
+
                   ),
                 ),
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              );
-            },
-            itemCount: users.length,
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context,index){
+                      return Container(
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return UserDetailPage(user:users[index]);})).then((value){
+                              setState(() {
+                                users[index]=value;
+                              });
+                            });
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
+                            color: Colors.white,
+                            elevation: 20,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
+                                      Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
+                                      Expanded(
+                                        child: Container(child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              onPressed: (){
+                                                setState(() {
+                                                  users.removeAt(index);
+                                                });
+                                              },
+                                              child: Container(
+                                                  padding:EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Color(0xD510446d),
+                                                  ),
+                                                  child: Text("Delete",style: TextStyle(color: Colors.white , ),)),),
+                                          ],
+                                        ),
+                                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              margin: EdgeInsets.fromLTRB(15,10,0,10),),
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      );
+                    },
+                    itemCount: users.length,
 
-        ),
-       )
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
         :Center(child: Text('No Data Found',style: TextStyle(fontSize: 20,color: Color(0xD510446d)),)),
       floatingActionButton : FloatingActionButton(
         onPressed: (){

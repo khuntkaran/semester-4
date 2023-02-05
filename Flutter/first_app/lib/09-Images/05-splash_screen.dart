@@ -27,7 +27,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
-            color: Colors.cyan,
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.cyan,
+                  Colors.white,
+                ],
+              )
           ),
           child: Center(child: Text("My First App",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.w800),))
       ),
