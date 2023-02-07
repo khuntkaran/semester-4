@@ -17,14 +17,18 @@ class _HomePageState extends State<HomePage> {
     {"name":"IOS","age":'18',"salary":'550000',"image":"https://www.nicepng.com/png/full/114-1140177_ios-logo-icon-free-os-x-icon-pack.png"},
     {"name":"Windos","age":'25',"salary":'650000',"image":"https://wallpapercave.com/wp/eHlGQW3.jpg"},
   ];
-
+  List<Map<String,dynamic> > databaseusers=[];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     MyDatabase().copyPasteAssetFileToRoot().then((value) => (value){
-       print("success full");
-       MyDatabase().getDataFromUsersTable();
+     MyDatabase().copyPasteAssetFileToRoot().then((value){
+       print("successfull");
+       MyDatabase().getDataFromUsersTable().then((value){
+         setState(() {
+           databaseusers=value;
+         });
+       });
      });
   }
 
@@ -127,9 +131,9 @@ class _HomePageState extends State<HomePage> {
                         child: InkWell(
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                              return UserDetailPage(user:users[index]);})).then((value){
+                              return UserDetailPage(user:databaseusers[index]);})).then((value){
                               setState(() {
-                                users[index]=value;
+                                databaseusers[index]=value;
                               });
                             });
                           },
@@ -142,8 +146,8 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Row(
                                     children: [
-                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
-                                      Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
+                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(databaseusers[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
+                                      Expanded(child: Container(child: Text(databaseusers[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
                                       Expanded(
                                         child: Container(child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -151,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                                             TextButton(
                                               onPressed: (){
                                                 setState(() {
-                                                  users.removeAt(index);
+                                                  databaseusers.removeAt(index);
                                                 });
                                               },
                                               child: Container(
@@ -176,73 +180,11 @@ class _HomePageState extends State<HomePage> {
                         margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                       );
                     },
-                    itemCount: users.length,
+                    itemCount: databaseusers.length,
 
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context,index){
-                      return Container(
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                              return UserDetailPage(user:users[index]);})).then((value){
-                              setState(() {
-                                users[index]=value;
-                              });
-                            });
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
-                            color: Colors.white,
-                            elevation: 20,
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
-                                      Expanded(child: Container(child: Text(users[index]["name"],style: TextStyle(fontSize: 25,fontFamily: 'EastSeaDokdo',color: Color(0xD510446d))))),
-                                      Expanded(
-                                        child: Container(child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            TextButton(
-                                              onPressed: (){
-                                                setState(() {
-                                                  users.removeAt(index);
-                                                });
-                                              },
-                                              child: Container(
-                                                  padding:EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Color(0xD510446d),
-                                                  ),
-                                                  child: Text("Delete",style: TextStyle(color: Colors.white , ),)),),
-                                          ],
-                                        ),
-                                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              margin: EdgeInsets.fromLTRB(15,10,0,10),),
-                          ),
-                        ),
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      );
-                    },
-                    itemCount: users.length,
 
-                  ),
-                ),
               ],
             ),
           ),

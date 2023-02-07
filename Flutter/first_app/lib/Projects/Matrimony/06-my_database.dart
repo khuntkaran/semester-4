@@ -27,9 +27,10 @@ class MyDatabase{
     }
   }
   
-  Future<void> getDataFromUsersTable() async {
+  Future< List<Map<String,dynamic>> >getDataFromUsersTable() async {
     Database db = await initMyDatabase();
     List<Map<String,dynamic> > users= await db.rawQuery("select * from users");
-    print("user data ${users.length}");
+    print("user data ::: ${users.length}");
+    return users;
   }
 }
