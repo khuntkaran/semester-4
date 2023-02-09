@@ -30,7 +30,21 @@ class MyDatabase{
   Future< List<Map<String,dynamic>> >getDataFromUsersTable() async {
     Database db = await initMyDatabase();
     List<Map<String,dynamic> > users= await db.rawQuery("select * from users");
-    print("user data ::: ${users.length}");
     return users;
+  }
+
+  Future<void> deleteDataFromUsersTable(int a) async {
+    Database db = await initMyDatabase();
+    await db.rawQuery("delete from users where id = $a");
+  }
+
+  Future<void> insertDataFromUsersTable(Map<String,dynamic> a) async {
+    Database db = await initMyDatabase();
+    await db.rawQuery('insert into users values("${a["name"]}","${a["age"]}","${a["salary"]}","${a["image"]}",null)');
+  }
+
+  Future<void> updateDataFromUsersTable(Map<String,dynamic> a) async {
+    Database db = await initMyDatabase();
+    await db.rawQuery('update users set name="${a["name"]}",age="${a["age"]}",salary="${a["salary"]}",image="${a["image"]}" where id=${a["id"]}');
   }
 }
