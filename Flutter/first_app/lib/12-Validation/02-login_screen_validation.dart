@@ -13,14 +13,6 @@ class _LoginScreenValidationState extends State<LoginScreenValidation> {
     _username=TextEditingController();
     _password=TextEditingController();
   }
-  bool validtion(context){
-    if(_username=="karan" && _password=="karan"){
-      return true ;
-    }
-    else{
-      return false ;
-    }
-  }
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();

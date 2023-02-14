@@ -15,14 +15,7 @@ class _LoginPageState extends State<LoginPage> {
     _username=TextEditingController();
     _password=TextEditingController();
   }
-  bool validtion(context){
-    if(_username=="karan" && _password=="karan"){
-          return true ;
-    }
-    else{
-      return false ;
-    }
-  }
+
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
