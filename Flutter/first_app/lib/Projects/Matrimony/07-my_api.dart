@@ -4,9 +4,7 @@ class MYAPI{
   String apiurl = "https://63de106ef1af41051b0d0a4c.mockapi.io/users";
   Future<List> getDataFromUsersAPI() async {
     http.Response users = await http.get(Uri.parse(apiurl));
-    print("data ::: ${users.body}");
-    List<dynamic> temp=jsonDecode(users.body.toString());
-    return temp;
+    return jsonDecode(users.body.toString());
   }
 
   Future<void> deleteDataFromUserAPI(int a) async {

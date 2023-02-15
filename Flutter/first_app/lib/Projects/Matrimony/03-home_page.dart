@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Map<String,dynamic> > databaseusers=[];
   List<dynamic > apiusers=[];
-
+  bool apiindicator = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
        print("successfull connecting2");
        setState((){
          apiusers=value;
+         apiindicator=false;
        });
      });
   }
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: users.length+databaseusers.length>0
+      body: users.length+databaseusers.length+apiusers.length>0
         ?SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(10),
@@ -211,7 +212,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Container(child: Text("API",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,fontFamily: "Inter"),),),
-                Container(
+                apiindicator==false
+                ?Container(
                   padding: EdgeInsets.all(10),
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -220,21 +222,30 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         child: InkWell(
                           onTap: (){
+                            setState(() {
+                              apiindicator=true;
+                            });
                             Navigator.of(context).push(MaterialPageRoute(builder: (context){
                               return UserDetailPage(user:apiusers[index]);})).then((value){
                               // update code for API Data
-                              if(value!=null){
+                                if(value!=null){
                                 MYAPI().updateDataFromUsersAPI(value,int.parse(apiusers[index]["id"])).then((value){
                                   print("successfull update");
                                   MYAPI().getDataFromUsersAPI().then((value){
                                     print("successfull connecting2");
                                     setState((){
                                       apiusers=value;
+                                      apiindicator=false;
                                     });
                                   });
                                 });
                               }
-                            });
+                                else {
+                                  setState(() {
+                                    apiindicator=false;
+                                  });
+                                }
+                              });
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.0)),
@@ -253,12 +264,16 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             TextButton(
                                               onPressed: (){
+                                                setState(() {
+                                                  apiindicator=true;
+                                                });
                                                 MYAPI().deleteDataFromUserAPI(int.parse(apiusers[index]["id"])).then((value){
                                                   print("successfull delete2");
                                                   MYAPI().getDataFromUsersAPI().then((value){
                                                     print("successfull connecting2");
                                                     setState((){
                                                       apiusers=value;
+                                                      apiindicator=false;
                                                     });
                                                   });
                                                 });
@@ -287,7 +302,10 @@ class _HomePageState extends State<HomePage> {
                     },
                     itemCount: apiusers.length,
                   ),
-                ),
+                )
+                :Container(
+                    child: CircularProgressIndicator(color: Color(0xD510446d),),
+                  ),
               ],
             ),
           ),
@@ -300,6 +318,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             FloatingActionButton(
               onPressed: (){
+                setState(() {
+                  apiindicator=true;
+                });
                 Navigator.of(context).push(MaterialPageRoute(builder: (context){
                   return AddEditUserPage();
                 })).then((value){
@@ -311,8 +332,14 @@ class _HomePageState extends State<HomePage> {
                         print("successfull connecting2");
                         setState((){
                           apiusers=value;
+                          apiindicator=false;
                         });
                       });
+                    });
+                  }
+                  else{
+                    setState(() {
+                      apiindicator=false;
                     });
                   }
                 });
