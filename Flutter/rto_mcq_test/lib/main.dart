@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rto_mcq_test/01%20Home%20Page/01_home_page.dart';
+import 'package:rto_mcq_test/00%20Home%20Page/01_main_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const MainHomePage(),
     );
   }
 }
