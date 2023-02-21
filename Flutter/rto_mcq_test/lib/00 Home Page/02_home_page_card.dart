@@ -35,8 +35,7 @@ class HomePageCard{
                   children: [
                     Icon(Icons.keyboard_arrow_right,size: 35,color: Colors.grey,)
                   ],
-                ),
-                ),
+                ),),
               ],
             ),
             margin: EdgeInsets.fromLTRB(10,10,0,10),
