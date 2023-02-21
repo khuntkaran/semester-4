@@ -54,6 +54,40 @@ class _MainExamPageState extends State<MainExamPage> {
     });
   }
 
+  Widget optionCard(String option,int index){
+    return InkWell(
+      onTap:(){
+        setState((){
+          choice=option;
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+        child: Card(
+          color: choice==option?ProjectVariable.headercolor:Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          elevation: 20,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Text("${option.toUpperCase()} : ",style: TextStyle(fontWeight: FontWeight.bold,color: choice==option?Colors.white:Colors.black,),),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(question[index][option],style: TextStyle(color: choice==option?Colors.white:Colors.black,),),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Variable ProjectVariable = Variable();
@@ -135,99 +169,9 @@ class _MainExamPageState extends State<MainExamPage> {
                                         ),
                                       ),
                                     ),
-                                  InkWell(
-                                    onTap:(){
-                                      setState(() {
-                                        choice="a";
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 20, 5, 0),
-                                      child: Card(
-                                        color: choice=="a"?ProjectVariable.headercolor:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("A : ",style: TextStyle(fontWeight: FontWeight.bold,color: choice=="a"?Colors.white:Colors.black,),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["a"],style: TextStyle(color: choice=="a"?Colors.white:Colors.black,),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap:(){
-                                      setState((){
-                                        choice="b";
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
-                                      child: Card(
-                                        color: choice=="b"?ProjectVariable.headercolor:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("B : ",style: TextStyle(fontWeight: FontWeight.bold,color: choice=="b"?Colors.white:Colors.black,),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["b"],style: TextStyle(color: choice=="b"?Colors.white:Colors.black,),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap:(){
-                                      setState((){
-                                        choice="c";
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 10, 5, 20),
-                                      child: Card(
-                                        color: choice=="c"?ProjectVariable.headercolor:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("C : ",style: TextStyle(fontWeight: FontWeight.bold,color: choice=="c"?Colors.white:Colors.black,),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["c"],style: TextStyle(color: choice=="c"?Colors.white:Colors.black,),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  optionCard("a", i),
+                                  optionCard("b", i),
+                                  optionCard("c", i),
                                   TextButton(
                                     onPressed: () {  },
                                     child: Container(
@@ -249,6 +193,7 @@ class _MainExamPageState extends State<MainExamPage> {
                     :Center(child: CircularProgressIndicator()),
                   ),
                 ),
+
                 Container(
                   margin: EdgeInsets.fromLTRB(5, 0, 5, 20),
                   child: Card(

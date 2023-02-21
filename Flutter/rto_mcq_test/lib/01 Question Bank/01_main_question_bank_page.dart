@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:rto_mcq_test/my_database.dart';
 import 'package:rto_mcq_test/variable.dart';
+
 
 class MainQuestionBankPage extends StatefulWidget {
   const MainQuestionBankPage({Key? key}) : super(key: key);
@@ -22,8 +24,10 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
   Variable ProjectVariable = Variable();
   List< Map<String,dynamic >> question=[];
 
+  List<int> bookmarks=[];
+
   @override
-  void initState() {
+  void initState()  {
     // TODO: implement initState
     super.initState();
     for(int i =0;i<ProjectVariable.question.length;i++){
@@ -31,6 +35,12 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
         question.add(ProjectVariable.question[i]);
       }
     }
+    MyDatabase().getDataFromBookmarksTable().then((value){
+      setState(() {
+        bookmarks=value;
+      });
+    });
+
   }
 
   @override
@@ -58,6 +68,41 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                 onChanged: (String? newValue) {
                 setState(() {
                   dropdownvalue=newValue!;
+                  _index=0;
+                  pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
+                  question=[];
+                  if(selectmenu==1){
+                    if(dropdownvalue=="Bookmarks"){
+                      for(int i =0;i<ProjectVariable.question.length;i++){
+                        if(ProjectVariable.question[i]["sign"]==false && bookmarks.contains(ProjectVariable.question[i]["_id"] )){
+                          question.add(ProjectVariable.question[i]);
+                        }
+                      }
+                    }
+                    else{
+                      for(int i =0;i<ProjectVariable.question.length;i++){
+                        if(ProjectVariable.question[i]["sign"]==false){
+                          question.add(ProjectVariable.question[i]);
+                        }
+                      }
+                    }
+                  }
+                  else{
+                    if(dropdownvalue=="Bookmarks"){
+                      for(int i =0;i<ProjectVariable.question.length;i++){
+                        if(ProjectVariable.question[i]["sign"]==true && bookmarks.contains(ProjectVariable.question[i]["_id"] )){
+                          question.add(ProjectVariable.question[i]);
+                        }
+                      }
+                    }
+                    else{
+                      for(int i =0;i<ProjectVariable.question.length;i++){
+                        if(ProjectVariable.question[i]["sign"]==true){
+                          question.add(ProjectVariable.question[i]);
+                        }
+                      }
+                    }
+                  }
                 });
               },
               ),
@@ -78,11 +123,21 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                           _index=0;
                           pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
                           question=[];
-                          for(int i =0;i<ProjectVariable.question.length;i++){
-                            if(ProjectVariable.question[i]["sign"]==false){
-                              question.add(ProjectVariable.question[i]);
+                          if(dropdownvalue=="Bookmarks"){
+                            for(int i =0;i<ProjectVariable.question.length;i++){
+                              if(ProjectVariable.question[i]["sign"]==false && bookmarks.contains(ProjectVariable.question[i]["_id"] )){
+                                    question.add(ProjectVariable.question[i]);
+                                }
+                              }
+                            }
+                          else{
+                            for(int i =0;i<ProjectVariable.question.length;i++){
+                              if(ProjectVariable.question[i]["sign"]==false){
+                                  question.add(ProjectVariable.question[i]);
+                              }
                             }
                           }
+
                         });
                       },
                       child: Text("QUESTIONS",style: TextStyle(color: 1==selectmenu?Colors.white:Colors.grey,),),
@@ -96,9 +151,18 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                           _index=0;
                           pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
                           question=[];
-                          for(int i =0;i<ProjectVariable.question.length;i++){
-                            if(ProjectVariable.question[i]["sign"]==true){
-                              question.add(ProjectVariable.question[i]);
+                          if(dropdownvalue=="Bookmarks"){
+                            for(int i =0;i<ProjectVariable.question.length;i++){
+                              if(ProjectVariable.question[i]["sign"]==true && bookmarks.contains(ProjectVariable.question[i]["_id"] )){
+                                question.add(ProjectVariable.question[i]);
+                              }
+                            }
+                          }
+                          else{
+                            for(int i =0;i<ProjectVariable.question.length;i++){
+                              if(ProjectVariable.question[i]["sign"]==true){
+                                question.add(ProjectVariable.question[i]);
+                              }
                             }
                           }
                         });
@@ -140,20 +204,53 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                             Text("A : ${question[i]["answer"]}",style: TextStyle(color: Colors.grey),),
                                           ],
                                         )),
-                                        Container(child: Icon(Icons.bookmark))
+                                        Container(
+                                            child: InkWell(
+                                              onTap: (){
+                                                if(bookmarks.contains(question[i]["_id"])){
+                                                  MyDatabase().deleteDataFromBookmarksTable(question[i]["_id"]);
+                                                }
+                                                else{
+                                                  MyDatabase().insertDataFromBookmarksTable(question[i]["_id"]);
+                                                }
+                                                setState(() {
+                                                  MyDatabase().getDataFromBookmarksTable().then((value){
+                                                    setState(() {
+                                                      bookmarks=value;
+                                                    });
+                                                  });
+                                                });
+                                              },
+                                              child: Icon(bookmarks.contains(question[i]["_id"])?Icons.bookmark:Icons.bookmark_border_sharp,color: ProjectVariable.headercolor,size: 30,)
+                                            )
+                                        )
                                       ],
                                     ),
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {  },
+                                  onPressed: () {
+                                    if(bookmarks.contains(question[i]["_id"])){
+                                      MyDatabase().deleteDataFromBookmarksTable(question[i]["_id"]);
+                                    }
+                                    else{
+                                      MyDatabase().insertDataFromBookmarksTable(question[i]["_id"]);
+                                    }
+                                    setState(() {
+                                      MyDatabase().getDataFromBookmarksTable().then((value){
+                                        setState(() {
+                                          bookmarks=value;
+                                        });
+                                      });
+                                    });
+                                  },
                                   child: Container(
                                       padding: EdgeInsets.all(15),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: ProjectVariable.headercolor,
                                       ),
-                                      child: Text("Bookmark",style: TextStyle(color:ProjectVariable.fontcolor),)
+                                      child: Text(bookmarks.contains(question[i]["_id"])?"Bookmarked":"Bookmark",style: TextStyle(color:ProjectVariable.fontcolor),)
                                   ),
                                 ),
                               ],

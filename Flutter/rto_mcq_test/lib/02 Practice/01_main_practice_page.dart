@@ -9,8 +9,8 @@ class MainPracticePage extends StatefulWidget {
 }
 
 class _MainPracticePageState extends State<MainPracticePage> {
-  int selectmenu=1;
 
+  int selectmenu=1;
   String dropdownvalue = "All";
   var items = ['All','Bookmarks','Question','Traffic signs'];
 
@@ -47,26 +47,54 @@ class _MainPracticePageState extends State<MainPracticePage> {
   }
 
   void choseoption(int index,String chose){
-    if(question[index]["answer"]==question[index][chose]){
-      setState(() {
-        validation[index]["attemp"]=true;
-        validation[index]["true"]=chose;
-        _truequestion++;
-      });
-    }
-    else{
-      setState(() {
-        validation[index]["attemp"]=true;
-        validation[index]["true"]=question[index]["answer"]==question[index]["a"]?"a":question[index]["answer"]==question[index]["b"]?"b":"c";
-        validation[index]["false"]=chose;
-        _falsequestion++;
-      });
-    }
+    setState(() {
+      validation[index]["attemp"]=true;
+      if(question[index]["answer"]==question[index][chose]){
+          validation[index]["true"]=chose;
+          _truequestion++;
+      }
+      else{
+          validation[index]["true"]=question[index]["answer"]==question[index]["a"]?"a":question[index]["answer"]==question[index]["b"]?"b":"c";
+          validation[index]["false"]=chose;
+          _falsequestion++;
+      }
+    });
+  }
+
+  Widget optionCard(String option,int index){
+    return InkWell(
+      onTap:validation[index]["attemp"]==false?(){
+        choseoption(index,option);
+      }:(){},
+      child: Container(
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+        child: Card(
+          color:validation[index]["true"]==option?Colors.green:validation[index]["false"]==option?Colors.red:Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          elevation: 20,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Text("${option.toUpperCase()} : ",style: TextStyle(fontWeight: FontWeight.bold,color:validation[index]["attemp"]==false?Colors.black:validation[index]["true"] == option || validation[index]["false"]==option?Colors.white:Colors.black),),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(question[index][option],style: TextStyle(color:validation[index]["attemp"]==false?Colors.black:validation[index]["true"] == option || validation[index]["false"]==option?Colors.white:Colors.black),),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
@@ -97,9 +125,10 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                       selectmenu=1;
                                       question=[];
                                       question=ProjectVariable.question;
+                                      declareValidation();
                                       _index=0;
                                       pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
-                                      declareValidation();
+
                                     });
                                   },
                                   child: Text("ALL",style: TextStyle(color: 1==selectmenu?Colors.white:Colors.grey,),),
@@ -203,98 +232,9 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                         ),
                                       ),
                                     ),
-
-                                  InkWell(
-                                    onTap:validation[_index]["attemp"]==false?(){
-                                      choice="a";
-                                      choseoption(_index,choice);
-                                    }:(){},
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 20, 5, 0),
-                                      child: Card(
-                                        color:validation[i]["true"]=="a"?Colors.green:validation[i]["false"]=="a"?Colors.red:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("A : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["a"]),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-
-                                    onTap:validation[_index]["attemp"]==false?(){
-                                      choice="b";
-                                      choseoption(_index,choice);
-                                    }:(){},
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
-                                      child: Card(
-                                        color:validation[i]["true"]=="b"?Colors.green:validation[i]["false"]=="b"?Colors.red:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("B : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["b"]),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap:validation[_index]["attemp"]==false?(){
-                                      choice="c";
-                                      choseoption(_index,choice);
-                                    }:(){},
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(5, 10, 5, 20),
-                                      child: Card(
-                                        color:validation[i]["true"]=="c"?Colors.green:validation[i]["false"]=="c"?Colors.red:Colors.white,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                        elevation: 20,
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Text("C : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(question[i]["c"]),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  optionCard("a", _index),
+                                  optionCard("b", _index),
+                                  optionCard("c", _index),
                                   TextButton(
                                     onPressed: () {  },
                                     child: Container(
