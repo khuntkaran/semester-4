@@ -199,9 +199,9 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             selectmenu==1  ?
-                                            Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
+                                            Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)
                                             :Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"])),
-                                            Text("A : ${question[i]["answer"]}",style: TextStyle(color: Colors.grey),),
+                                            Container(margin:EdgeInsets.fromLTRB(0, 7, 0, 0),child: Text("Ans : ${question[i]["answer"]}",style: TextStyle(color: Colors.grey,fontSize: 16),)),
                                           ],
                                         )),
                                         Container(

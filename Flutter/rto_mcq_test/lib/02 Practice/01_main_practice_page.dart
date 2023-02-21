@@ -196,7 +196,6 @@ class _MainPracticePageState extends State<MainPracticePage> {
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    height: 700,
                     child: question.length>0?
                     PageView.builder(
                       itemCount:  question.length,

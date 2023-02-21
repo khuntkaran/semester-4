@@ -131,7 +131,6 @@ class _MainExamPageState extends State<MainExamPage> {
               children: [
                 Expanded(
                   child: Container(
-                    height: 700,
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: question.length>0?
                     PageView.builder(
