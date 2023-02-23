@@ -81,5 +81,12 @@ class Variable{
       "b":"gesagaf",
       "c":"gesagaf",
       "sign":true},
+    {"_id":12,
+      "question":"Stop Sign",
+      "answer":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3u8wCTCC7Ws_R6JMytGzAkN2ZIQw4tw82fg&usqp=CAU",
+      "a":"https://5.imimg.com/data5/SH/WT/MY-152348/u-turn-prohibited-mandatory-retro-reflective-road-signage-500x500.jpg",
+      "b":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3u8wCTCC7Ws_R6JMytGzAkN2ZIQw4tw82fg&usqp=CAU",
+      "c":"https://d2m3nfprmhqjvd.cloudfront.net/blog/20220228141513/s24-1160x653.jpg",
+      "sign":true},
   ];
 }

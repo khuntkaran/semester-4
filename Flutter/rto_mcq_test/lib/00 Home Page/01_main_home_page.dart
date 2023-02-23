@@ -25,7 +25,7 @@ class _MainHomePageState extends State<MainHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
       appBar: AppBar(
-        elevation:0,
+        
         titleSpacing: 0,
         leading: Container( padding: EdgeInsets.fromLTRB(5, 2, 0, 2), child: CircleAvatar(radius: 23,backgroundColor: Color(0x94A8A8A8),child: CircleAvatar(backgroundImage: NetworkImage("https://wallpaperaccess.com/full/1311997.jpg"), radius: 20,))),
         actions: [

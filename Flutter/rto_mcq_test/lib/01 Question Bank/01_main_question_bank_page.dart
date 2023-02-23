@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:rto_mcq_test/my_database.dart';
 import 'package:rto_mcq_test/variable.dart';
+import 'package:string_validator/string_validator.dart';
 
 
 class MainQuestionBankPage extends StatefulWidget {
@@ -68,8 +67,6 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                 onChanged: (String? newValue) {
                 setState(() {
                   dropdownvalue=newValue!;
-                  _index=0;
-                  pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
                   question=[];
                   if(selectmenu==1){
                     if(dropdownvalue=="Bookmarks"){
@@ -103,6 +100,10 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                       }
                     }
                   }
+                  _index=0;
+                  if(question.length>0){
+                    pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
+                  }
                 });
               },
               ),
@@ -121,7 +122,6 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                         setState(() {
                           selectmenu=1;
                           _index=0;
-                          pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
                           question=[];
                           if(dropdownvalue=="Bookmarks"){
                             for(int i =0;i<ProjectVariable.question.length;i++){
@@ -137,7 +137,9 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                               }
                             }
                           }
-
+                          if(question.length>0){
+                            pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
+                          }
                         });
                       },
                       child: Text("QUESTIONS",style: TextStyle(color: 1==selectmenu?Colors.white:Colors.grey,),),
@@ -149,7 +151,6 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                         setState(() {
                           selectmenu=2;
                           _index=0;
-                          pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
                           question=[];
                           if(dropdownvalue=="Bookmarks"){
                             for(int i =0;i<ProjectVariable.question.length;i++){
@@ -165,6 +166,9 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                               }
                             }
                           }
+                          if(question.length>0){
+                            pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
+                          }
                         });
                       },
                       child: Text("TRAFFIC SIGNS",style: TextStyle(color: 2==selectmenu?Colors.white:Colors.grey,),),
@@ -175,8 +179,7 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
             ),
             Expanded(
               child: Container(
-                child: question.length>0?
-                PageView.builder(
+                child:PageView.builder(
                 itemCount:  question.length,
                 controller: pageController,
                 onPageChanged: (int index) => setState(() => _index = index),
@@ -198,10 +201,22 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                         Expanded(child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            selectmenu==1  ?
+                                            isURL(question[i]["question"])==false  ?
                                             Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)
-                                            :Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"])),
-                                            Container(margin:EdgeInsets.fromLTRB(0, 7, 0, 0),child: Text("Ans : ${question[i]["answer"]}",style: TextStyle(color: Colors.grey,fontSize: 16),)),
+                                            :Row(
+                                              children: [
+                                                Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                                                Expanded(child: Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"]))),
+                                              ],
+                                            ),
+                                            isURL(question[i]["answer"])==false  ?
+                                            Container(margin:EdgeInsets.fromLTRB(0, 7, 0, 0),child: Text("Ans : ${question[i]["answer"]}",style: TextStyle(color: Colors.grey,fontSize: 16),))
+                                            :Container(alignment: AlignmentDirectional.center,child: Row(
+                                              children: [
+                                                Text("Ans : ",style: TextStyle(color: Colors.grey,fontSize: 16),),
+                                                Expanded(child: Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["answer"]))),
+                                              ],
+                                            )),
                                           ],
                                         )),
                                         Container(
@@ -228,31 +243,6 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                     ),
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    if(bookmarks.contains(question[i]["_id"])){
-                                      MyDatabase().deleteDataFromBookmarksTable(question[i]["_id"]);
-                                    }
-                                    else{
-                                      MyDatabase().insertDataFromBookmarksTable(question[i]["_id"]);
-                                    }
-                                    setState(() {
-                                      MyDatabase().getDataFromBookmarksTable().then((value){
-                                        setState(() {
-                                          bookmarks=value;
-                                        });
-                                      });
-                                    });
-                                  },
-                                  child: Container(
-                                      padding: EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: ProjectVariable.headercolor,
-                                      ),
-                                      child: Text(bookmarks.contains(question[i]["_id"])?"Bookmarked":"Bookmark",style: TextStyle(color:ProjectVariable.fontcolor),)
-                                  ),
-                                ),
                               ],
                             ),
                       ],
@@ -260,7 +250,7 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                   );
                 },
                   )
-                :Center(child: CircularProgressIndicator()),
+
               ),
             ),
             Container(

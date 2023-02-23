@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rto_mcq_test/variable.dart';
+import 'package:rto_mcq_test/my_database.dart';
+import 'package:string_validator/string_validator.dart';
 
 class MainPracticePage extends StatefulWidget {
   const MainPracticePage({Key? key}) : super(key: key);
@@ -23,12 +25,20 @@ class _MainPracticePageState extends State<MainPracticePage> {
   int _falsequestion=0;
   String choice="";
 
+  List<int> bookmarks=[];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     question=ProjectVariable.question;
     declareValidation();
+
+    MyDatabase().getDataFromBookmarksTable().then((value){
+      setState(() {
+        bookmarks=value;
+      });
+    });
   }
 
   void declareValidation(){
@@ -81,7 +91,9 @@ class _MainPracticePageState extends State<MainPracticePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(question[index][option],style: TextStyle(color:validation[index]["attemp"]==false?Colors.black:validation[index]["true"] == option || validation[index]["false"]==option?Colors.white:Colors.black),),
+                      isURL(question[index][option])==false?
+                      Text(question[index][option],style: TextStyle(color:validation[index]["attemp"]==false?Colors.black:validation[index]["true"] == option || validation[index]["false"]==option?Colors.white:Colors.black),)
+                      :Container(alignment: AlignmentDirectional.center,child: Image.network(question[index][option],height: 200,)),
                     ],
                   ),
                 ),
@@ -128,7 +140,6 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                       declareValidation();
                                       _index=0;
                                       pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
-
                                     });
                                   },
                                   child: Text("ALL",style: TextStyle(color: 1==selectmenu?Colors.white:Colors.grey,),),
@@ -143,9 +154,10 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                           question.add(ProjectVariable.question[i]);
                                         }
                                       }
+                                      declareValidation();
                                       _index=0;
                                       pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
-                                      declareValidation();
+
                                     });
                                   },
                                   child: Text("QUESTIONS",style: TextStyle(color: 2==selectmenu?Colors.white:Colors.grey,),),
@@ -160,9 +172,9 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                           question.add(ProjectVariable.question[i]);
                                         }
                                       }
+                                      declareValidation();
                                       _index=0;
                                       pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
-                                      declareValidation();
                                     });
                                   },
                                   child: Text("TRAFFIC SIGNS",style: TextStyle(color: 3==selectmenu?Colors.white:Colors.grey,),),
@@ -171,15 +183,15 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                   onPressed: (){
                                     setState(() {
                                       selectmenu=4;
-                                      // question=[];
-                                      // for(int i =0;i<ProjectVariable.question.length;i++){
-                                      //   if(ProjectVariable.question[i]["sign"]==true){
-                                      //     question.add(ProjectVariable.question[i]);
-                                      //   }
-                                      // }
+                                      question=[];
+                                      for(int i =0;i<ProjectVariable.question.length;i++){
+                                        if(bookmarks.contains(ProjectVariable.question[i]["_id"] )){
+                                          question.add(ProjectVariable.question[i]);
+                                        }
+                                      }
+                                      declareValidation();
                                       _index=0;
                                       pageController.animateToPage(_index=0 ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
-                                      declareValidation();
                                     });
                                   },
                                   child: Text("BOOKMARKS",style: TextStyle(color: 4==selectmenu?Colors.white:Colors.grey,),),
@@ -196,8 +208,7 @@ class _MainPracticePageState extends State<MainPracticePage> {
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: question.length>0?
-                    PageView.builder(
+                    child: PageView.builder(
                       itemCount:  question.length,
                       controller: pageController,
                       onPageChanged: (int index) => setState(() => _index = index),
@@ -220,13 +231,41 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  question[i]["sign"]==false  ?
-                                                  Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
-                                                      :Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"],height: 200,)),
+                                                  // question[i]["sign"]==false
+                                                  // ?Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
+                                                  // :Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"],height: 200,)),
+
+                                                  isURL(question[i]["question"])==false
+                                                  ?Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
+                                                  :Container(alignment: AlignmentDirectional.center,child: Row(
+                                                    children: [
+                                                      Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                      Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                    ],
+                                                  )),
                                                 ],
                                               ),
                                             ),
-                                            Container(child: Icon(Icons.bookmark))
+                                            Container(
+                                                child: InkWell(
+                                                    onTap: (){
+                                                      if(bookmarks.contains(question[i]["_id"])){
+                                                        MyDatabase().deleteDataFromBookmarksTable(question[i]["_id"]);
+                                                      }
+                                                      else{
+                                                        MyDatabase().insertDataFromBookmarksTable(question[i]["_id"]);
+                                                      }
+                                                      setState(() {
+                                                        MyDatabase().getDataFromBookmarksTable().then((value){
+                                                          setState(() {
+                                                            bookmarks=value;
+                                                          });
+                                                        });
+                                                      });
+                                                    },
+                                                    child: Icon(bookmarks.contains(question[i]["_id"])?Icons.bookmark:Icons.bookmark_border_sharp,color: ProjectVariable.headercolor,size: 30,)
+                                                )
+                                            )
                                           ],
                                         ),
                                       ),
@@ -234,17 +273,6 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                   optionCard("a", _index),
                                   optionCard("b", _index),
                                   optionCard("c", _index),
-                                  TextButton(
-                                    onPressed: () {  },
-                                    child: Container(
-                                        padding: EdgeInsets.all(15),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: ProjectVariable.headercolor,
-                                        ),
-                                        child: Text("Bookmark",style: TextStyle(color:ProjectVariable.fontcolor),)
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -252,7 +280,7 @@ class _MainPracticePageState extends State<MainPracticePage> {
                         );
                       },
                     )
-                        :Center(child: CircularProgressIndicator()),
+
                   ),
                 ),
 

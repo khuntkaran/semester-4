@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rto_mcq_test/variable.dart';
+import 'package:rto_mcq_test/my_database.dart';
+import 'package:string_validator/string_validator.dart';
 
 class MainExamPage extends StatefulWidget {
   const MainExamPage({Key? key}) : super(key: key);
@@ -18,8 +20,10 @@ class _MainExamPageState extends State<MainExamPage> {
   int _truequestion=0;
   int _falsequestion=0;
   String choice="";
-  int questionTime=11;
+  int questionTime=15;
   Duration time = Duration();
+
+  List<int> bookmarks=[];
 
   @override
   void initState() {
@@ -29,6 +33,11 @@ class _MainExamPageState extends State<MainExamPage> {
     time=Duration(seconds: questionTime);
     setState(() {
       Timer.periodic(Duration(seconds: 1), (timer) { setTime();});
+    });
+    MyDatabase().getDataFromBookmarksTable().then((value){
+      setState(() {
+        bookmarks=value;
+      });
     });
   }
 
@@ -76,7 +85,9 @@ class _MainExamPageState extends State<MainExamPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(question[index][option],style: TextStyle(color: choice==option?Colors.white:Colors.black,),),
+                      isURL(question[index][option])==false?
+                      Text(question[index][option],style: TextStyle(color: choice==option?Colors.white:Colors.black,),)
+                      :Container(alignment: AlignmentDirectional.center,child: Image.network(question[index][option],height: 200,)),
                     ],
                   ),
                 ),
@@ -94,7 +105,6 @@ class _MainExamPageState extends State<MainExamPage> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              elevation:0,
               titleSpacing: 0,
               actions: [
                 Container(
@@ -132,8 +142,7 @@ class _MainExamPageState extends State<MainExamPage> {
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: question.length>0?
-                    PageView.builder(
+                    child:PageView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount:  question.length,
                       controller: pageController,
@@ -157,13 +166,37 @@ class _MainExamPageState extends State<MainExamPage> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  question[i]["sign"]==false  ?
+                                                  isURL(question[i]["question"])==false?
                                                   Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
-                                                      :Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"],height: 200,)),
+                                                  :Container(alignment: AlignmentDirectional.center,child: Row(
+                                                    children: [
+                                                      Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                      Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                    ],
+                                                  )),
                                                 ],
                                               ),
                                             ),
-                                            Container(child: Icon(Icons.bookmark))
+                                            Container(
+                                                child: InkWell(
+                                                    onTap: (){
+                                                      if(bookmarks.contains(question[i]["_id"])){
+                                                        MyDatabase().deleteDataFromBookmarksTable(question[i]["_id"]);
+                                                      }
+                                                      else{
+                                                        MyDatabase().insertDataFromBookmarksTable(question[i]["_id"]);
+                                                      }
+                                                      setState(() {
+                                                        MyDatabase().getDataFromBookmarksTable().then((value){
+                                                          setState(() {
+                                                            bookmarks=value;
+                                                          });
+                                                        });
+                                                      });
+                                                    },
+                                                    child: Icon(bookmarks.contains(question[i]["_id"])?Icons.bookmark:Icons.bookmark_border_sharp,color: ProjectVariable.headercolor,size: 30,)
+                                                )
+                                            )
                                           ],
                                         ),
                                       ),
@@ -171,17 +204,6 @@ class _MainExamPageState extends State<MainExamPage> {
                                   optionCard("a", i),
                                   optionCard("b", i),
                                   optionCard("c", i),
-                                  TextButton(
-                                    onPressed: () {  },
-                                    child: Container(
-                                        padding: EdgeInsets.all(15),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: ProjectVariable.headercolor,
-                                        ),
-                                        child: Text("Bookmark",style: TextStyle(color:ProjectVariable.fontcolor),)
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -189,7 +211,6 @@ class _MainExamPageState extends State<MainExamPage> {
                         );
                       },
                     )
-                    :Center(child: CircularProgressIndicator()),
                   ),
                 ),
 
