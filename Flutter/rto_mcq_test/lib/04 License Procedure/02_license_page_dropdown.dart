@@ -29,8 +29,8 @@ class LicensePageDropdown {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(margin:EdgeInsets.only(top: 3),child: Icon(Icons.circle,color:ProjectVariable.headercolor,size: 13,)),
-                              Expanded(child: Text("${detailList[index1]["subtitle"][index2]}",style: TextStyle(color:Colors.black),)),
+                              Container(margin:EdgeInsets.fromLTRB(0, 4,3,0),child: Icon(Icons.circle,color:ProjectVariable.headercolor,size: 10,)),
+                              Expanded(child: Text("${detailList[index1]["subtitle"][index2]}",)),
                             ],
                           ),
                         );

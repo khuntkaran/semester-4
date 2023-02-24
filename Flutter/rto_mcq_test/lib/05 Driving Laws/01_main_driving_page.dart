@@ -37,7 +37,7 @@ class _MainDrivingLawsPageState extends State<MainDrivingLawsPage> {
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                         shrinkWrap:true,
-                      itemCount: 5,
+                      itemCount: Laws.length,
                         itemBuilder: (context,index){
                         return Container(
                           child: Card(
@@ -46,8 +46,8 @@ class _MainDrivingLawsPageState extends State<MainDrivingLawsPage> {
                               margin: EdgeInsets.all(15),
                               child: Row(
                                 children: [
-                                  Expanded(child: Text("Offences"),flex: 2,),
-                                  Expanded(child: Text("Penalty"))
+                                  Expanded(child: Text("${Laws[index]["penalty"]}"),flex: 2,),
+                                  Expanded(child: Text("Rs.${Laws[index]["penalty"]}/-"))
                                 ],
                               ),
                             ),
@@ -63,3 +63,24 @@ class _MainDrivingLawsPageState extends State<MainDrivingLawsPage> {
     );
   }
 }
+
+List<Map<String,dynamic>> Laws=[
+  {"offences":"","penalty":500},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":1000},
+  {"offences":"","penalty":5000},
+  {"offences":"","penalty":5000},
+  {"offences":"","penalty":2000},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+  {"offences":"","penalty":100},
+];
