@@ -9,7 +9,9 @@ import 'package:rto_mcq_test/04%20License%20Procedure/01_main_license_procedure_
 import 'package:rto_mcq_test/05%20Driving%20Laws/01_main_driving_page.dart';
 import 'package:rto_mcq_test/06%20RTO%20Codes/01_main_rto_codes_page.dart';
 import 'package:rto_mcq_test/07%20Statistics/01_main_statistics_page.dart';
-import 'package:rto_mcq_test/08%20Setting/01_main_setting_page.dart';
+import 'package:rto_mcq_test/08%20FAQ/01_main_faq_page.dart';
+import 'package:rto_mcq_test/09%20Setting/01_main_setting_page.dart';
+
 import 'package:rto_mcq_test/variable.dart';
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -60,8 +62,9 @@ class _MainHomePageState extends State<MainHomePage> {
             hpc.CardMaker(Color(0xd5536d10),Icons.list,"Exam","Time and question bound test exactly same as actual RTO test",context,MainExamPage()),
             hpc.CardMaker(Color(0xd56d1026),Icons.add,"License Procedure","Find the complete process on how to apply for License",context,MainLicenseProcedurePage()),
             hpc.CardMaker(Color(0xd5276d10),IcoFontIcons.lawOrder,"Driving Laws","Access a complete list of various driving laws and their penalties",context,MainDrivingLawsPage()),
-            hpc.CardMaker(Color(0xd5273a85),Icons.numbers_sharp,"RTO Codes","You can search for RTO codes across various states and cities of India",context,MainRTOCodesPage()),
+            hpc.CardMaker(Color(0xd5273a85),Icons.numbers_sharp,"RTO Code & Office","You can search for RTO codes across various states and cities of India",context,MainRTOCodesPage()),
             hpc.CardMaker(Color(0xd567106d),FontAwesomeIcons.chartBar,"Statistics","Driving Licence, Vehicle Population, Road Accidents",context,MainStatisticsPage()),
+            hpc.CardMaker(Color(0xd5e85e87),Icons.question_mark,"FAQ","Some Impotent Document For Driving vehicle",context,MainFAQPage()),
             hpc.CardMaker(Color(0xd56d6510),Icons.settings,"Setting & Help","Language selection",context,MainSettingPage()),
           ],
         ),

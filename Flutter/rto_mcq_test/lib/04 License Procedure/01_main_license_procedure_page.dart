@@ -30,6 +30,7 @@ class _MainLicenseProcedurePageState extends State<MainLicenseProcedurePage> {
                 LPD.DropdownMaker(RenewalofDrivingLicense,"Renewal of Driving License"),
                 LPD.DropdownMaker(ChangeDrivingLicence,"For change in details of driving license or obtaining a duplicate"),
                 LPD.DropdownMaker(InternationalDrivingLicence,"International Driving License or Permit"),
+                LPD.DropdownMaker(DeliveredDrivingLicence,"Driving Licenses delivered"),
               ],
             ),
           ),
@@ -64,4 +65,8 @@ List<Map<String,dynamic>> ChangeDrivingLicence=[
 
 List<Map<String,dynamic>> InternationalDrivingLicence=[
   {"heading":"","subtitle":["To obtain international driving license, application in Form 4 (A) should be made along with the Medical Certificate in Form � 1 (A).","Copy of Existing driving license. Copy of passport, visa and three passport size photographs should be attached with the application.","A fee of Rs.500/- is required to be paid for this purpose.","A permit is issued for a period of one year or till the validity of existing driving license, whichever is earlier.","Duplicate International Driving Permit is not issued or renewed after expiry.","After expiry of International Driving Permit it is not renewed.","It may be noted that, such license is issued only for Indian citizen and they are required to be presented in R.T.O. in person."]}
+];
+
+List<Map<String,dynamic>> DeliveredDrivingLicence=[
+  {"heading":"Learning license is delivered to the applicant in person on the same day when he comes for knowledge test.","subtitle":["Driving license is sent by speed post at the address mentioned by the applicant in his application.","International driving permit is delivered to the applicant in person."]}
 ];
