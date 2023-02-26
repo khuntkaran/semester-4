@@ -123,7 +123,7 @@ class _MainExamPageState extends State<MainExamPage> {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.watch_later_outlined,color: ProjectVariable.headercolor,),
+                        Icon(Icons.alarm,color: ProjectVariable.headercolor,),
                         Text("${time.inSeconds}",style: TextStyle(color:ProjectVariable.headercolor),),
                         Text("s",style: TextStyle(color:ProjectVariable.headercolor),),
                       ],
@@ -249,7 +249,7 @@ class _MainExamPageState extends State<MainExamPage> {
                                             ),
                                             child: Row(
                                               children: [
-                                                Icon(Icons.confirmation_num_sharp,color: ProjectVariable.fontcolor,),
+                                                Icon(Icons.close,color: ProjectVariable.fontcolor,),
                                                 Text("${_falsequestion}",style: TextStyle(color:ProjectVariable.fontcolor),),
                                               ],
                                             )

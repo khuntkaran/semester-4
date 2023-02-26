@@ -4,6 +4,7 @@ import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:rto_mcq_test/00%20Home%20Page/02_home_page_card.dart';
 import 'package:rto_mcq_test/01%20Question%20Bank/01_main_question_bank_page.dart';
 import 'package:rto_mcq_test/02%20Practice/01_main_practice_page.dart';
+import 'package:rto_mcq_test/03%20Exam/00_instruction_page.dart';
 import 'package:rto_mcq_test/03%20Exam/01_main_exam_page.dart';
 import 'package:rto_mcq_test/04%20License%20Procedure/01_main_license_procedure_page.dart';
 import 'package:rto_mcq_test/05%20Driving%20Laws/01_main_driving_page.dart';
@@ -55,18 +56,21 @@ class _MainHomePageState extends State<MainHomePage> {
         backgroundColor: ProjectVariable.headercolor,
       ),
       body:SingleChildScrollView(
-        child: Column(
-          children: [
-            hpc.CardMaker(Color(0xD510446d),Icons.local_activity,"Question Bank","List of questions & answers and meaning of road signs",context,MainQuestionBankPage()),
-            hpc.CardMaker(Color(0xd58a1aaf),Icons.favorite_border,"Practice","Test your knowledge without worrying about time",context,MainPracticePage()),
-            hpc.CardMaker(Color(0xd5536d10),Icons.list,"Exam","Time and question bound test exactly same as actual RTO test",context,MainExamPage()),
-            hpc.CardMaker(Color(0xd56d1026),Icons.add,"License Procedure","Find the complete process on how to apply for License",context,MainLicenseProcedurePage()),
-            hpc.CardMaker(Color(0xd5276d10),IcoFontIcons.lawOrder,"Driving Laws","Access a complete list of various driving laws and their penalties",context,MainDrivingLawsPage()),
-            hpc.CardMaker(Color(0xd5273a85),Icons.numbers_sharp,"RTO Code & Office","You can search for RTO codes across various states and cities of India",context,MainRTOCodesPage()),
-            hpc.CardMaker(Color(0xd567106d),FontAwesomeIcons.chartBar,"Statistics","Driving Licence, Vehicle Population, Road Accidents",context,MainStatisticsPage()),
-            hpc.CardMaker(Color(0xd5e85e87),Icons.question_mark,"FAQ","Some Impotent Document For Driving vehicle",context,MainFAQPage()),
-            hpc.CardMaker(Color(0xd56d6510),Icons.settings,"Setting & Help","Language selection",context,MainSettingPage()),
-          ],
+        child: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+          child: Column(
+            children: [
+              hpc.CardMaker(Color(0xD510446d),Icons.local_library_outlined,"Question Bank","List of questions & answers and meaning of road signs",context,MainQuestionBankPage()),
+              hpc.CardMaker(Color(0xd58a1aaf),Icons.menu_book,"Practice","Test your knowledge without worrying about time",context,MainPracticePage()),
+              hpc.CardMaker(Color(0xd5536d10),Icons.close,"Exam","Time and question bound test exactly same as actual RTO test",context,InstructionsPage()),
+              hpc.CardMaker(Color(0xd56d1026),Icons.add,"License Procedure","Find the complete process on how to apply for License",context,MainLicenseProcedurePage()),
+              hpc.CardMaker(Color(0xd5276d10),IcoFontIcons.lawOrder,"Driving Laws","Access a complete list of various driving laws and their penalties",context,MainDrivingLawsPage()),
+              hpc.CardMaker(Color(0xd5273a85),Icons.numbers_sharp,"RTO Code & Office","You can search for RTO codes across various states and cities of India",context,MainRTOCodesPage()),
+              hpc.CardMaker(Color(0xd567106d),Icons.bar_chart,"Statistics","Driving Licence, Vehicle Population, Road Accidents",context,MainStatisticsPage()),
+              hpc.CardMaker(Color(0xd5e85e87),Icons.question_mark,"FAQ","Some Impotent Document For Driving vehicle",context,MainFAQPage()),
+              hpc.CardMaker(Color(0xd56d6510),Icons.settings,"Setting & Help","Language selection",context,MainSettingPage()),
+            ],
+          ),
         ),
       ),
       // backgroundColor: Color(0xE72C2C2D),

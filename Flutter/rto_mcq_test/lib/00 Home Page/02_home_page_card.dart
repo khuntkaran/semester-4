@@ -9,13 +9,13 @@ class HomePageCard{
           Navigator.of(context).push(MaterialPageRoute(builder: (context){return routeName;}));
         },
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          elevation: 20,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(25),bottomLeft: Radius.circular(25))),
+          elevation: 12,
           child: Container(
             child: Row(
               children: [
                 // Container(child: CircleAvatar(radius: 23,backgroundColor: Color(0xD510446d),child: CircleAvatar(backgroundImage: NetworkImage(users[index]["image"]), radius: 20,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
-                Container(child: CircleAvatar(radius: 33,backgroundColor: linecolor,child: Icon(logoicon,color: Colors.white,shadows: [Shadow(color: Colors.black,blurRadius: 2,)],)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
+                Container(child: CircleAvatar(radius: 33,backgroundColor: linecolor,child: Icon(logoicon,color: Colors.white,shadows: [Shadow(color: Colors.black,blurRadius: 30,)],size: 30,)),margin: EdgeInsets.fromLTRB(0, 0, 5, 0)),
                 Column(
                   children: [Text("|",style: TextStyle(fontSize: 33,color: linecolor),)],
                 ),

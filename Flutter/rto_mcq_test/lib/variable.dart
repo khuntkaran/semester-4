@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class Variable{
+import 'package:flutter/material.dart';
+import 'package:rto_mcq_test/00%20Home%20Page/01_main_home_page.dart';
+
+class Variable extends StatefulWidget {
+
   Color headercolor = Color(0xD510446d);
   Color fontcolor = Color(0xffffffff);
   List< Map<String,dynamic> > question = [
@@ -89,4 +93,47 @@ class Variable{
       "c":"https://d2m3nfprmhqjvd.cloudfront.net/blog/20220228141513/s24-1160x653.jpg",
       "sign":true},
   ];
+
+  void setQuestion(List< Map<String,dynamic> > question){
+    this.question=question;
+  }
+  @override
+  State<Variable> createState() => _VariableState();
+}
+
+class _VariableState extends State<Variable> {
+  Variable ProjectVariable = Variable();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 15),
+            ()=>Navigator.pushReplacement(context,
+            MaterialPageRoute(builder:
+                (context) => MainHomePage()
+            )
+        )
+    );
+    // API calling for question
+    print("10");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  ProjectVariable.headercolor,
+                  Colors.white,
+                ],
+              )
+          ),
+          child: Center(child: Text("RTO Driving Test",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.w800),))
+      ),
+    );
+  }
 }

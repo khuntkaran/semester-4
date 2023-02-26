@@ -328,7 +328,7 @@ class _MainPracticePageState extends State<MainPracticePage> {
                                             ),
                                             child: Row(
                                               children: [
-                                                Icon(Icons.crop_square_sharp,color: ProjectVariable.fontcolor,),
+                                                Icon(Icons.close,color: ProjectVariable.fontcolor,),
                                                 Text("${_falsequestion}",style: TextStyle(color:ProjectVariable.fontcolor),),
                                               ],
                                             )
