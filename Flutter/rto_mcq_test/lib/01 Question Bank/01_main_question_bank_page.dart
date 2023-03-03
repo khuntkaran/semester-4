@@ -203,10 +203,40 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                           children: [
                                             isURL(question[i]["question"])==false  ?
                                             Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)
-                                            :Row(
+                                            :Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-                                                Expanded(child: Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["question"]))),
+                                                Text("Q-${i+1} : This sign represents",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                                                Row(
+                                                  children: [
+                                                     Expanded(child: Image.network(question[i]["question"],height: 200,
+                                                       loadingBuilder: (BuildContext context, Widget child,
+                                                           ImageChunkEvent? loadingProgress) {
+                                                         if (loadingProgress == null) {
+                                                           return child;
+                                                         }
+                                                         return Center(
+                                                           child: CircularProgressIndicator(
+                                                             value: loadingProgress.expectedTotalBytes != null
+                                                                 ? loadingProgress.cumulativeBytesLoaded /
+                                                                 loadingProgress.expectedTotalBytes!
+                                                                 : null,
+                                                           ),
+                                                         );
+                                                       },
+                                                     )),
+                                                    // Expanded(
+                                                    //     child: FutureBuilder(
+                                                    //       future: (){Image.network(question[i]["question"],height: 200,)},
+                                                    //       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                                                    //
+                                                    //       },
+                                                    //
+                                                    //     )
+                                                    // ),
+
+                                                  ],
+                                                ),
                                               ],
                                             ),
                                             isURL(question[i]["answer"])==false  ?
@@ -214,7 +244,7 @@ class _MainQuestionBankPageState extends State<MainQuestionBankPage> {
                                             :Container(alignment: AlignmentDirectional.center,child: Row(
                                               children: [
                                                 Text("Ans : ",style: TextStyle(color: Colors.grey,fontSize: 16),),
-                                                Expanded(child: Container(alignment: AlignmentDirectional.center,child: Image.network(question[i]["answer"]))),
+                                                Expanded(child: Image.network(question[i]["answer"],height: 200,)),
                                               ],
                                             )),
                                           ],

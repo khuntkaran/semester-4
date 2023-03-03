@@ -107,7 +107,7 @@ class _VariableState extends State<Variable> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 15),
+    Timer(Duration(seconds: 5),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) => MainHomePage()

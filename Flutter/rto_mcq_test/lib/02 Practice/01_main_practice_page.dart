@@ -81,7 +81,7 @@ class _MainPracticePageState extends State<MainPracticePage> {
         child: Card(
           color:validation[index]["true"]==option?Colors.green:validation[index]["false"]==option?Colors.red:Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          elevation: 20,
+          elevation: 10,
           child: Container(
             margin: EdgeInsets.all(10),
             child: Row(
@@ -237,10 +237,15 @@ class _MainPracticePageState extends State<MainPracticePage> {
 
                                                   isURL(question[i]["question"])==false
                                                   ?Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
-                                                  :Container(alignment: AlignmentDirectional.center,child: Row(
+                                                  :Container(alignment: AlignmentDirectional.center,child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                      Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                      Text("Q-${i+1} : This sign represents ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                        ],
+                                                      ),
                                                     ],
                                                   )),
                                                 ],

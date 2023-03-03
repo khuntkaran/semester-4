@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rto_mcq_test/variable.dart';
 import 'package:rto_mcq_test/my_database.dart';
@@ -29,7 +29,16 @@ class _MainExamPageState extends State<MainExamPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    question=ProjectVariable.question;
+    int choosequestion=0;
+    List<int> addIndex=[];
+    while(choosequestion<10){
+      int randomNumber = Random().nextInt(ProjectVariable.question.length);
+      if(!addIndex.contains(randomNumber)){
+        addIndex.add(randomNumber);
+        question.add(ProjectVariable.question[randomNumber]);
+        choosequestion++;
+      }
+    }
     time=Duration(seconds: questionTime);
     setState(() {
       Timer.periodic(Duration(seconds: 1), (timer) { setTime();});
@@ -51,7 +60,7 @@ class _MainExamPageState extends State<MainExamPage> {
       }
       choice="";
       if(_index<question.length-1){
-        time=Duration(seconds: questionTime);
+        time=Duration(seconds: questionTime+1);
         pageController.animateToPage(_index<question.length-1?++_index:_index ,curve: Curves.bounceInOut, duration: Duration(milliseconds: 50),);
       }
       else{
@@ -74,8 +83,8 @@ class _MainExamPageState extends State<MainExamPage> {
         margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
         child: Card(
           color: choice==option?ProjectVariable.headercolor:Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          elevation: 20,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 2,
           child: Container(
             margin: EdgeInsets.all(10),
             child: Row(
@@ -141,7 +150,7 @@ class _MainExamPageState extends State<MainExamPage> {
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child:PageView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount:  question.length,
@@ -155,8 +164,8 @@ class _MainExamPageState extends State<MainExamPage> {
                               Column(
                                 children: [
                                   Card(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                                      elevation: 20,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                                      elevation: 2,
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Row(
@@ -168,10 +177,15 @@ class _MainExamPageState extends State<MainExamPage> {
                                                 children: [
                                                   isURL(question[i]["question"])==false?
                                                   Text("Q-${i+1} : ${question[i]["question"]}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)
-                                                  :Container(alignment: AlignmentDirectional.center,child: Row(
+                                                  :Container(alignment: AlignmentDirectional.center,child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text("Q-${i+1} : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                      Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                      Text("Q-${i+1} : This sign represents",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(child: Image.network(question[i]["question"],height: 200,)),
+                                                        ],
+                                                      ),
                                                     ],
                                                   )),
                                                 ],
