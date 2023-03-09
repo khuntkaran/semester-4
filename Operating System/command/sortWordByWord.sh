@@ -1,0 +1,1 @@
+cat f2.txt | tr " " "\n" | sort | tr "\n" " ";echo

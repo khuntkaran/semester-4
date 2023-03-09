@@ -1,0 +1,10 @@
+write a shell script which will print following menu and exwcute task:-
+1. display calender of current month
+2. display date and time
+3. display currnt enter user name
+4. display your name at given position x,y
+
+n numbers as comannd arguments and sort them in decending order
+n numbers from file and sort them in decending order
+write a shell script to read a file  and sort tgem in asending order in line by line
+write a shell script to read a file  and sort tgem in asending order in word by word 

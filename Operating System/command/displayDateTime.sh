@@ -1,0 +1,3 @@
+date +%d
+
+date +%T

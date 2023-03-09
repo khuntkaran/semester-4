@@ -1,0 +1,20 @@
+1. print order list -
+2. print today's date
+3. get data from 2 files and append it to 3rd files
+4. odd even number
+5. largest from two number
+6. largest from three number
+7. leap year or not
+8. copy name column from two files to new file 
+9. merge two file using pipe and store in new file
+10. append f1.txt to any other file without overwrite
+11. count number of line
+12. print list of file having extenction .txt to another file
+13. palindrome number using while loop
+14. palindrome between two numbers using while loop
+15. find x^y using while loop
+16. prime number using while
+17. display first n prime numbers using while loop
+18. take string from user and print it
+19. print firstname,lastname,middlename and print in one line
+20. make sub string from string(default & user)
