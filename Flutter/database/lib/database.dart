@@ -32,23 +32,29 @@ class MyDatabase{
 
   Future< List<Map<String,dynamic>> >getDataFromStudentdetailTable() async {
     Database db = await initDatabase();
-    List<Map<String,dynamic> > student= await db.rawQuery("select * from studentdetail");
+    List<Map<String,dynamic> > student= await db.rawQuery("select rollno,sd.name,age,std,cid,c.name as cname from studentdetail as sd inner join city as c on cid=id");
     return student;
   }
 
   Future<void> insertDataFromStudentdetailTable(Map<String,dynamic> a) async{
     Database db = await initDatabase();
-    await db.rawQuery('insert into studentdetail values(null,"${a["name"]}",${a["age"]},${a["std"]})');
+    await db.rawQuery('insert into studentdetail values(null,"${a["name"]}",${a["age"]},${a["std"]},${a["cid"]})');
   }
 
   Future<void> updateDataFromStudentdetailTable(Map<String,dynamic> a , int roll) async{
     Database db = await initDatabase();
-    await db.rawQuery('update studentdetail set name="${a["name"]}",age=${a["age"]},std=${a["std"]} where rollno=${roll}');
+    await db.rawQuery('update studentdetail set name="${a["name"]}",age=${a["age"]},std=${a["std"]},cid=${a["cid"]} where rollno=${roll}');
   }
 
   Future<void> deleteDataFromStudentdetailTable(int roll) async{
     Database db = await initDatabase();
     await db.rawQuery('delete from studentdetail where rollno=${roll}');
+  }
+
+  Future< List<Map<String,dynamic>> >getDataFromCityTable() async {
+    Database db = await initDatabase();
+    List<Map<String,dynamic> > city= await db.rawQuery("select * from city");
+    return city;
   }
 
 }

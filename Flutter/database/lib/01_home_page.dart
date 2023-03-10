@@ -27,13 +27,17 @@ class _HomePageState extends State<HomePage> {
 
   void insertData(){
     Navigator.of(context).push(MaterialPageRoute(builder: (context){return AddEditPage();})).then((value){
-      MyDatabase().insertDataFromStudentdetailTable(value).then((value) => getData());
+      if(value!=null){
+        MyDatabase().insertDataFromStudentdetailTable(value).then((value) => getData());
+      }
     });
   }
 
   void updateData(Map<String,dynamic> studentdata){
     Navigator.of(context).push(MaterialPageRoute(builder: (context){return AddEditPage(student:studentdata);})).then((value){
-      MyDatabase().updateDataFromStudentdetailTable(value, studentdata["rollno"]).then((value) => getData());
+      if(value!=null){
+        MyDatabase().updateDataFromStudentdetailTable(value, studentdata["rollno"]).then((value) => getData());
+      }
     });
   }
 
@@ -70,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                     Text("Roll No : ${student[index]["rollno"]}"),
                     Text("Age : ${student[index]["age"]}"),
                     Text("Std : ${student[index]["std"]}"),
+                    Text("City : ${student[index]["cname"]}"),
                   ],
                 )),
                 Container(
