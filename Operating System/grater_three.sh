@@ -10,7 +10,7 @@ then
     if [ $A -gt $C ]
         then 
         echo "A is grater"
-    else echo "B is grater"
+    else echo "C is grater"
     fi
 else 
     if [ $B -gt $C ]
